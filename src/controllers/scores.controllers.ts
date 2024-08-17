@@ -2,18 +2,29 @@ import { Request, Response, response } from "express";
 import { client } from "../db";
 
 export const addScore = async (request: Request, response: Response) => {
-  const { score, name } = request.body;
-
   try {
+    const { name, score } = request.body;
+
     const res = await client.query(
       "INSERT INTO scores (name, score) VALUES ($1, $2)",
       [name, score]
     );
+
     console.log("Score added", res.rowCount);
-    response.status(200).json({ scoreAdded: res.rowCount });
+    return response.status(200).json({ scoreAdded: res.rowCount });
   } catch (error) {
-    console.error(error);
-    response.status(400).json({ error: error });
+    console.error("Failure adding score: ", error);
+    return response.status(400).json({ error: error });
+  }
+};
+
+export const getScores = async (_request: Request, response: Response) => {
+  try {
+    const res = await client.query("SELECT * FROM scores");
+    return response.status(200).json(res.rows);
+  } catch (error) {
+    console.error("Failure getting table scores: ", error);
+    return response.status(400).json({ error: error });
   }
 };
 
@@ -25,7 +36,7 @@ export const createTable = async () => {
   );
   const table = res.rows[0].exists;
 
-  if(table) console.log('Table scores exists')
+  if (table) console.log("Table scores exists");
 
   // Crea la tabla 'scores' si no existe
   if (!table) {
@@ -45,5 +56,3 @@ export const createTable = async () => {
     }
   }
 };
-
-export const getScores = async () => {};

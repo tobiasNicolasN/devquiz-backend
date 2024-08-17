@@ -4,7 +4,7 @@ import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from "./config";
 // const client = new Client("postgres://admin:test1234@localhost:5432/db_name")
 
 // Docker command
-// docker run --name test-postgres -e POSTGRES_PASSWORD=test1234 -e POSTGRES_USER=admin -e POSTGRES_DB=db_name -p 5432:5432 -d p
+// docker run --name test-postgres -e POSTGRES_PASSWORD=test1234 -e POSTGRES_USER=admin -e POSTGRES_DB=db_name -p 5432:5432 -d postgres
 
 export const client = new Client({
   port: parseInt(DB_PORT!),

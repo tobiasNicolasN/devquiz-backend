@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { createTable } from "../controllers/scores.controllers";
+import { addScore, getScores } from "../controllers/scores.controllers";
+import { scoreSchema } from "../schemas/score.schemas";
+import { validatorSchema } from "../middlewares/validatorSchema.middleware";
 
-const router = Router()
+const router = Router();
 
-router.post('/score', createTable)
+router.post("/scores", validatorSchema(scoreSchema), addScore);
+router.get("/scores", getScores);
 
-export default router
+export default router;
