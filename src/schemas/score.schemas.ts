@@ -14,6 +14,6 @@ export const scoreSchema = z.object({
       required_error: "Score is required",
       invalid_type_error: "Score must be a number",
     })
-    .int({message: 'Score must be a integer'})
-    .nonnegative({message: 'Score must be a positive number'}),
+    .int({ message: "Score must be a integer" })
+    .nonnegative({ message: "Score must be a positive number" }),
 });
