@@ -11,6 +11,16 @@ export const getQuestions = async (_request: Request, response: Response) => {
   }
 };
 
+export const getResponses = async (_request: Request, response: Response) => {
+    try {
+      const res = await client.query("SELECT * FROM responses");
+      return response.status(200).json(res.rows);
+    } catch (error) {
+      console.error("Failure getting table responses: ", error);
+      return response.status(400).json({ error: error });
+    }
+  };
+  
 export const createTableQuestions = async () => {
   // Se hace una consulta para saber si la tabla 'questions' existe
   const res = await client.query(
